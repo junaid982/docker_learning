@@ -1,0 +1,21 @@
+
+What is Image and container in docker ?
+
+
+Image :
+Templates of the project.
+
+* it is a kind of ready to use software read-only templates
+* Images is make with source codes , libraries external dependencies and tools.
+* Images can not be updated.
+* If you want to make changes in image you have to create new image.
+* Images can not run directly.
+
+  
+container :
+Running Instance of image.
+
+
+* The comtainer is a process that runs application with images.
+* Container is an isolated process.
+* Means container run independently on computer
