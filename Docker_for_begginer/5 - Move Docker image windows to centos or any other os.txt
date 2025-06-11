@@ -1,0 +1,83 @@
+STEP-BY-STEP: Transfer Docker Image from Windows to CentOS Server
+
+
+ Assumptions
+Docker image is built on Windows: e.g., mydjangoapp
+
+CentOS server IP: 192.168.0.114 (adjust as needed)
+
+You can SSH into the CentOS server
+
+You want to run the image on port 8013
+
+
+
+
+
+Step 1: Save the Docker image to a file on Windows
+
+In Command Prompt or PowerShell, run:
+
+
+>>> docker save -o mydjangoapp.tar mydjangoapp
+
+
+
+
+Step 2: Transfer the image file to CentOS
+
+
+Step 3: Load the Docker image from .tar file on CentOS
+
+>>> docker load -i /root/mydjangoapp.tar
+
+You should see output like:
+
+Loaded image: mydjangoapp:latest
+
+
+
+ Step 4: Run the Docker image on CentOS
+
+
+>>> docker run -d -p 8013:8013 --name django_container mydjangoapp
+
+
+-d = Detached Mode
+Runs the container in the background.
+
+You won't see the container logs in the terminal.
+
+Useful when you want your app running continuously without locking the terminal.
+
+Example:
+
+>>> docker run -d mydjangoapp
+
+Runs mydjangoapp in background. You can check it with:
+
+>>> docker ps
+
+
+-p = Port Mapping
+Maps a host port (your machine) to a container port (inside Docker).
+
+Syntax: -p <host_port>:<container_port>
+
+Example:
+bash
+Copy
+Edit
+docker run -p 8013:8013 mydjangoapp
+
+
+
+
+
+Now the app is running on:
+
+
+http://192.168.0.114:8013
+
+
+
