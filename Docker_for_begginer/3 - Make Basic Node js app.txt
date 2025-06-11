@@ -1,0 +1,70 @@
+Make Basic Node js app
+
+
+
+
+1 - Create project folder
+
+>>> mkdir basic-app
+>>> cd basic-app
+
+
+2 - open any code editor in this folder ( vs code )
+>>> code .
+
+# Open any terminal with this same directory
+
+3 - Create your project as susual 
+
+
+4 - Creating docker Container 
+
+a - Create docker file in you project root directory
+
+
+# The below command will create empty docker file dont have any extension
+
+>>> touch dockerfile
+
+
+# Write a docker code to create your project image
+
+-------------------------------------------------------------
+FROM node:latest
+COPY . .
+RUN npm install
+Expose 5500
+CMD [ "node" , "index.js" ]
+-------------------------------------------------------------
+
+
+b - Create Image for your project 
+
+>>> docker build -t basic-app .
+
+
+
+c - to check image created or not 
+>>> docker images
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

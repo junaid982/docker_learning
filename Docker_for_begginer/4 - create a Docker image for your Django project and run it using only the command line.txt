@@ -1,0 +1,96 @@
+create a Docker image for your Django project and run it using only the command line
+
+
+* Prerequisites
+Ensure you have:
+
+Docker installed and running: docker -v should show the version.
+
+Django project folder ready (e.g., myproject/).
+
+IP 192.168.0.135 is your server IP (used for testing).
+
+Python 3.9.21 is your current interpreter (Docker will use its own)
+
+
+Step 1: Prepare Your Django Project
+
+1.1 Add requirements.txt (if not already):
+
+>>> pip freeze > requirements.txt
+
+
+
+1.2 Update settings.py
+
+ALLOWED_HOSTS = ['*']  # Or ['192.168.0.135']
+
+
+
+Step 2: Create the Dockerfile
+
+Inside your project directory, create a file named Dockerfile:
+
+
+
+-------------------------------------------------------------
+# Use official Python image with version 3.9
+FROM python:3.9-slim
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copy project files
+COPY . /app/
+
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
+# Expose port 8013
+EXPOSE 8013
+
+# Run Django app
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8013"]
+
+-------------------------------------------------------------
+
+
+
+
+Step 3: Build the Docker Image
+
+Run this in the same directory as the Dockerfile:
+
+>>> docker build -t mydjangoapp .
+
+This creates a Docker image named mydjangoapp
+
+
+Step 4: Run the Container
+
+docker run -d -p 8013:8013 --name django_container mydjangoapp
+
+
+
+
+ Step 5: Test the Application
+
+
+http://192.168.0.135:8013
+
+
+
+
+
+
+
+
+
